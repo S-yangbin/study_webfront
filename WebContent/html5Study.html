@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html manifest="demo.appcache"> <!-- specify this page to be cached (A manifest file needs to be served with the correct MIME-type, which is "text/cache-manifest". Must be configured on the web server.) -->
+<!--
+
+example manifest file
+
+CACHE MANIFEST  #indicate cache those files
+# 2012-02-21 v1.0.0
+/theme.css
+/logo.gif
+/main.js
+
+NETWORK: # not cache those
+login.asp
+
+FALLBACK: # when offline, and user access /html/ show /offline.html
+/html/ /offline.html
+
+-->
+
+<head>
+<title>My HTML5 Tests</title>
+<style type="text/css">
+#div1 {width:220px;height:280px;padding:10px;border:1px solid #aaaaaa}
+
+figure, div
+{ 
+display: inline-block; 
+}
+</style>
+<!-- drag -->
+<script>
+function allowDrop(ev)
+{
+ev.preventDefault(); // element/data cannot be dropped in by default, so call this
+}
+<!-- specify drag action drag target.id as Text type -->
+function drag(ev)
+{
+ev.dataTransfer.setData("Text",ev.target.id);
+}
+function drop(ev)
+{
+//ev.preventDefault(); 
+var data=ev.dataTransfer.getData("Text");
+ev.target.appendChild(document.getElementById(data));
+}
+</script>
+</head>
+
+<body>
+<nav>
+	<a href="html5Test.html#source">Source</a> |
+	<a href="html5Test.html#canvas">Canvas</a> |
+	<a href="html5Test.html#elements">Elements</a> |
+	<a href="html5Test.html#storage">Storage</a>
+</nav>
+<article>
+<header>
+    <h1>My HMLT5 Journey</h1>
+    <p><time pubdate datetime="2013-11-27"></time></p>
+</header>
+<section id="source">
+	<h1>Source</h1>
+	<figure>
+		<img id="scream" src="img_the_scream.jpg" 
+			draggable="true" //set element dragable
+			ondragstart="drag(event)"/>
+		<figcaption>Fig1. - Scream.</figcaption>
+	</figure>
+	<figure>
+		<img id="semantic" src="img_sem_elements.gif" 
+		draggable="true" //set element dragable
+		ondragstart="drag(event)"/>
+		<figcaption>Fig2. - Semantic.</figcaption>
+    </figure>
+    <figure>
+		<!-- user SVG(scalable vector graphics) -->
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="190" width="220">
+		  <polygon points="100,10 40,180 190,60 10,60 160,180"
+		  style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;">
+		</svg>
+		<figcaption><a href="http://www.w3schools.com/svg/default.asp">Fig3. - SVG </a></figcaption>
+	</figure>
+	<aside>
+	  <h4>Epcot Center</h4>
+	  <p>The Epcot Center is a theme park in Disney World, Florida.</p>
+	</aside>
+<section>
+
+<section id="canvas">
+	<h1>Canvas</h1>
+	<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+	</canvas>
+	<canvas id="myCanvas2" width="200" height="100" style="border:1px solid #000000;">
+	</canvas>
+	<canvas id="myCanvas3" width="200" height="100" style="border:1px solid #000000;">
+	</canvas>
+	<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</section>
+<section id="elements">
+	<h1>Elements</h1>
+	<video width="320" height="240" controls>
+	  <source src="movie.mp4" type="video/mp4">
+	  <source src="movie.ogg" type="video/ogg">
+	  Your browser does not support the video tag.
+	</video>
+	<audio controls>
+	  <source src="horse.ogg" type="audio/ogg">
+	  <source src="horse.mp3" type="audio/mpeg">
+	Your browser does not support the audio element.
+	</audio>
+	Geolocation(<a href="http://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation_map_script">Google Map Script</a>):<span id="loc"></span>
+	<button onclick="getLocation()">Get Location</button>
+	<form autocomplete="on"> // can set to novalidate
+	InputTypes:<br>
+	Select your favorite color: <input type="color" name="favcolor"><br>
+	Birthday: <input type="date" name="bday"><br>
+	Birthday (date and time): <input type="datetime" name="bdaytime"><br>
+	Birthday (date and time): <input type="datetime-local" name="bdaytime"><br>
+	E-mail: <input type="email" name="email"><br>
+	Birthday (month and year): <input type="month" name="bdaymonth"><br>
+	Quantity (between 1 and 5): <input type="number" name="quantity" min="1" max="5"><br>
+	<input type="range" name="points" min="1" max="10"><br>
+	Search Google: <input type="search" name="googlesearch"><br>
+	Telephone: <input type="tel" name="usrtel" autocomplete="off"><br>
+	Select a time: <input type="time" name="usr_time"><br>
+	Add your homepage: <input type="url" name="homepage" autofocus required placeholder="http://xxx.xxx.xx"><br>
+	Select a week: <input type="week" name="week_year"><br>
+	Pattern: <input type="text" name="pattern" pattern="[A-Z]{6}.+"><br>
+	<input type="submit">
+	</form>
+	<form action="http://www.w3schools.com/html/demo_keygen.asp" method="get">
+	Username: <input type="text" name="usr_name">
+	Encryption: <keygen name="security">
+	<input type="submit">
+	</form>
+	<form oninput="x.value=parseInt(a.value)+parseInt(b.value)">
+	0<input type="range" id="a" value="50">100 + <input type="number" id="b" value="50">=<output name="x"></output>
+	</form>
+	Auto complete: <input list="browsers">
+	<datalist id="browsers">
+	  <option value="Internet Explorer">
+	  <option value="Firefox">
+	  <option value="Firefox2">
+	  <option value="Chrome">
+	  <option value="Opera">
+	  <option value="Safari">
+	</datalist>
+</section>
+<section id="storage">
+<h1>Storage</h1>
+<div id="result"></div>
+<div id="result1"></div>
+<div id="result2"></div>
+<button onclick="clickCounter()">Click Me</button>
+<button onclick="sessionCounter()">Click Me</button>
+<button onclick="startWorker()">Start Count</button>
+<button onclick="stopWorker()">Stop Count</button>
+<footer>
+	<p>Posted by: Shen Yangbin</p>
+	<p><time pubdate datetime="2013-11-28"></time></p>
+</footer>
+</article>
+<!-- canvas -->
+<script>
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+<!-- draw rect use color fillStyle -->
+ctx.fillStyle="#FF0000";
+ctx.fillRect(0,0,150,75); 
+<!-- draw line -->
+ctx.moveTo(0,0);
+ctx.lineTo(200,100);
+ctx.stroke(); <!-- execute the drawing -->
+<!-- draw a cricle -->
+ctx.beginPath(); <!-- reset current point -->
+ctx.arc(95,50,40,0,2*Math.PI);
+ctx.stroke(); // fill()
+<!-- draw text on canvas -->
+ctx.fillStyle="#00FF00";
+ctx.font="20px Arial";
+ctx.fillText("Hello World",10,20);
+ctx.strokeText("Hello World",10,90);
+<!-- draw gradient -->
+var c=document.getElementById("myCanvas2");
+var ctx=c.getContext("2d");
+var grd=ctx.createLinearGradient(0,0,200,0); 
+//var grd=ctx.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+ctx.fillStyle=grd;
+ctx.fillRect(10,10,150,80);
+<!-- draw image( not supported on chrome) -->
+var c=document.getElementById("myCanvas3");
+var ctx=c.getContext("2d");
+var img=document.getElementById("scream");
+ctx.drawImage(img,10,10);
+</script>
+<!-- GeoLocation -->
+<script>
+var x=document.getElementById("loc");
+function getLocation()
+{
+if (navigator.geolocation)
+{
+navigator.geolocation.getCurrentPosition(showPosition, showError);
+}
+else{x.innerHTML="Geolocation is not supported by this browser.";}
+}
+function showPosition(position)
+{
+var latlon=position.coords.latitude+","+position.coords.longitude;
+
+var img_url="http://maps.googleapis.com/maps/api/staticmap?center="
++latlon+"&zoom=14&size=400x300&sensor=false";
+
+x.innerHTML="<img src='"+img_url+"'>";
+}
+function showError(error)
+{
+switch(error.code) 
+{
+case error.PERMISSION_DENIED:
+  x.innerHTML="User denied the request for Geolocation."
+  break;
+case error.POSITION_UNAVAILABLE:
+  x.innerHTML="Location information is unavailable."
+  break;
+case error.TIMEOUT:
+  x.innerHTML="The request to get user location timed out."
+  break;
+case error.UNKNOWN_ERROR:
+  x.innerHTML="An unknown error occurred."
+  break;
+}
+}
+</script>
+<!-- Key/Value storage test -->
+<script>
+function clickCounter()
+{
+if(typeof(Storage)!=="undefined")
+  {
+  if (localStorage.clickcount) // localstorage avaliable all the time
+    {
+    localStorage.clickcount=Number(localStorage.clickcount)+1;
+    }
+  else
+    {
+    localStorage.clickcount=0;
+    }
+  document.getElementById("result").innerHTML="You have clicked the button " + localStorage.clickcount + " time(s).";
+  }
+else
+  {
+  document.getElementById("result").innerHTML="Sorry, your browser does not support web storage...";
+  }
+}
+// load counter
+if(typeof(Storage)!=="undefined")
+  {
+  if (!localStorage.clickcount)
+    {
+    localStorage.clickcount=0;
+    }
+  document.getElementById("result").innerHTML="You have clicked the button " + localStorage.clickcount + " time(s).";
+  }
+else
+  {
+  document.getElementById("result").innerHTML="Sorry, your browser does not support web storage...";
+  }
+// session Counter
+function sessionCounter()
+{
+if(typeof(Storage)!=="undefined")
+  {
+  if (sessionStorage.clickcount) // session storage only avaliable in one session
+    {
+    sessionStorage.clickcount=Number(sessionStorage.clickcount)+1;
+    }
+  else
+    {
+    sessionStorage.clickcount=1;
+    }
+  document.getElementById("result1").innerHTML="You have clicked the button " + sessionStorage.clickcount + " time(s) in this session.";
+  }
+else
+  {
+  document.getElementById("result1").innerHTML="Sorry, your browser does not support web storage...";
+  }
+}
+</script>
+<!-- web worker -->
+<script>
+var w;
+function startWorker()
+{
+if(typeof(Worker)!=="undefined")
+{
+  if(typeof(w)=="undefined")
+    {
+    w=new Worker("demo_workers.js");
+    }
+  w.onmessage = function (event) {
+    document.getElementById("result2").innerHTML=event.data;
+  };
+}
+else
+{
+document.getElementById("result2").innerHTML="Sorry, your browser does not support Web Workers...";
+}
+}
+function stopWorker()
+{ 
+w.terminate();
+}
+</script>
+
+</body>
+</html>
