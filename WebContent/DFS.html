@@ -1,0 +1,133 @@
+<!DOCTYPE unspecified PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+</head>
+
+<body>
+	<div id="box">
+		<div id="row_1">
+			<span class="folder able open" id="folder_1">131</span>
+		</div>
+		<div id="row_2">
+			<span class="folder able" id="folder_2">158</span><span
+				class="folder able" id="folder_3">195</span>
+		</div>
+		<div id="row_3">
+			<span class="folder" id="folder_4">196</span><span class="folder"
+				id="folder_5">130</span><span class="folder" id="folder_6">190</span>
+		</div>
+		<div id="row_4">
+			<span class="folder" id="folder_7">134</span><span class="folder"
+				id="folder_8">146</span><span class="folder" id="folder_9">193</span><span
+				class="folder" id="folder_10">105</span>
+		</div>
+		<div id="row_5">
+			<span class="folder" id="folder_11">108</span><span class="folder"
+				id="folder_12">116</span><span class="folder" id="folder_13">193</span><span
+				class="folder" id="folder_14">173</span><span class="folder"
+				id="folder_15">138</span>
+		</div>
+		<div id="row_6">
+			<span class="folder" id="folder_16">132</span><span class="folder"
+				id="folder_17">185</span><span class="folder" id="folder_18">133</span><span
+				class="folder" id="folder_19">171</span><span class="folder"
+				id="folder_20">102</span><span class="folder" id="folder_21">139</span>
+		</div>
+		<div id="row_7">
+			<span class="folder" id="folder_22">165</span><span class="folder"
+				id="folder_23">178</span><span class="folder" id="folder_24">141</span><span
+				class="folder" id="folder_25">170</span><span class="folder"
+				id="folder_26">140</span><span class="folder" id="folder_27">121</span><span
+				class="folder" id="folder_28">194</span>
+		</div>
+		<div id="row_8">
+			<span class="folder" id="folder_29">156</span><span class="folder"
+				id="folder_30">115</span><span class="folder" id="folder_31">133</span><span
+				class="folder" id="folder_32">121</span><span class="folder"
+				id="folder_33">139</span><span class="folder" id="folder_34">179</span><span
+				class="folder" id="folder_35">127</span><span class="folder"
+				id="folder_36">164</span>
+		</div>
+		<div id="row_9">
+			<span class="folder" id="folder_37">142</span><span class="folder"
+				id="folder_38">190</span><span class="folder" id="folder_39">125</span><span
+				class="folder" id="folder_40">131</span><span class="folder"
+				id="folder_41">136</span><span class="folder" id="folder_42">118</span><span
+				class="folder" id="folder_43">166</span><span class="folder"
+				id="folder_44">156</span><span class="folder" id="folder_45">102</span>
+		</div>
+		<div id="row_10">
+			<span class="folder" id="folder_46">103</span><span class="folder"
+				id="folder_47">118</span><span class="folder" id="folder_48">170</span><span
+				class="folder" id="folder_49">195</span><span class="folder"
+				id="folder_50">159</span><span class="folder" id="folder_51">111</span><span
+				class="folder" id="folder_52">138</span><span class="folder"
+				id="folder_53">109</span><span class="folder" id="folder_54">156</span><span
+				class="folder" id="folder_55">200</span>
+		</div>
+		<div id="row_11">
+			<span class="folder" id="folder_56">150</span><span class="folder"
+				id="folder_57">169</span><span class="folder" id="folder_58">103</span><span
+				class="folder" id="folder_59">145</span><span class="folder"
+				id="folder_60">103</span><span class="folder" id="folder_61">152</span><span
+				class="folder" id="folder_62">126</span><span class="folder"
+				id="folder_63">194</span><span class="folder" id="folder_64">102</span><span
+				class="folder" id="folder_65">162</span><span class="folder"
+				id="folder_66">113</span>
+		</div>
+		<div id="row_12">
+			<span class="folder" id="folder_67">107</span><span class="folder"
+				id="folder_68">162</span><span class="folder" id="folder_69">135</span><span
+				class="folder" id="folder_70">112</span><span class="folder"
+				id="folder_71">161</span><span class="folder" id="folder_72">168</span><span
+				class="folder" id="folder_73">179</span><span class="folder"
+				id="folder_74">153</span><span class="folder" id="folder_75">180</span><span
+				class="folder" id="folder_76">137</span><span class="folder"
+				id="folder_77">149</span><span class="folder" id="folder_78">114</span>
+		</div>
+	</div>
+	<div id="output"></div>
+
+	<script type="text/javascript">
+		var level = [];
+		var total = 0;
+		for (var i = 0; i < 12; i++) {
+			level[i] = [];
+			for (var j = 0; j <= i; j++) {
+				total++;
+				level[i][j] = {};
+				level[i][j].value = document.getElementById("folder_" + total).textContent;
+			}
+		}
+
+		for (i = 0; i < level.length - 1; i++) {
+			for (j = 0; j < level[i].length; j++) {
+				level[i][j].left = level[i + 1][j];
+				level[i][j].right = level[i + 1][j + 1];
+			}
+		}
+
+		function maximunSum(tree, lev) {
+			if (!tree.hasOwnProperty('left'))
+				return tree.value;
+
+			var pre = "";
+			for (var x = 0; x < lev; x++) {
+				pre = pre + "-";
+			}
+			console.log(pre + "> " + tree.value);
+
+			var leftSum = maximunSum(tree.left, lev + 1);
+			var rightSum = maximunSum(tree.right, lev + 1);
+			if (leftSum >= rightSum) {
+				return leftSum + ',' + tree.value;
+			} else {
+				return rightSum + ',' + tree.value;
+			}
+		}
+
+		console.log(maximunSum(level[0][0], 1));
+	</script>
+
+</body>
+</html>
