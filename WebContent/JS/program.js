@@ -45,15 +45,34 @@ for(name in foo){
 foo.func('delete, but will not touch prototype properties');
 document.writeln(" [delete foo.firstname:"+delete foo.firstname);
 document.writeln(" [foo.firstname:"+foo.firstname);
-foo.func('alalalala');
+foo.func('function');
+var add = function (a, b){
+	return a+b;
+};
+add.value = 1;
+add.double = function (){
+	var that = this; // this is bound to 'add' function
+	var helper = function(){ // this will be bound to 'global'
+		that.value = add(that.value, that.value);
+	};
+	
+	helper();
+}
+add.double();
+document.writeln(add.value);
+foo.func('inherence: change father object properties can affect all sub object');
+var sss = {
+		p1:9,
+		p2:8,
+		p3:7
+}
 
+var child = Object.create(sss);
+child.p4 = 5;
+child.__proto__.p0 = 1;
 
-
-
-
-
-
-
+var child2 = Object.create(sss);
+document.writeln(child2.p0);
 
 
 
